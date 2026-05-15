@@ -19,4 +19,13 @@ public enum AddressType
     Office = 3,
     Guardian = 4
 }
+
+public enum UserType
+{
+    Admin,
+    Teacher,
+    Student,
+    Guest,
+    Guardian
+}
     

@@ -1,5 +1,5 @@
-using Schola.Domain.ValueObjects;
+// using Schola.Domain.ValueObjects;
 
-namespace Schola.Domain.Policies;
+// namespace Schola.Domain.Policies;
 
-    public record PolicyData(Consts.Gender Gender, SampleEntityDestination Destination);
+//     public record PolicyData(Consts.Gender Gender, SampleEntityDestination Destination);

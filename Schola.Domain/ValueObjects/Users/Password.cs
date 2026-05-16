@@ -25,6 +25,11 @@ public sealed record Password
         Value = value;
     }
 
+    public bool Verify(string password)
+    {
+        return Value == password;
+    }
+
     public static implicit operator string(Password password)
         => password?.Value ?? string.Empty;
 

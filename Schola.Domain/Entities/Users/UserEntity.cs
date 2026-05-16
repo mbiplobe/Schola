@@ -82,6 +82,16 @@ public class UserEntity : AggregateRoot<EntityID>
 
         AddEvent(new UserPasswordChangedEvent(Id, newPassword, oldPassword));
     }
+    
+    public bool ValidatePassword(string password)
+    {
+        return Password.Verify(password);
+    }
+
+
+
+    
+
 
     // public void DetectLogin()
     // {

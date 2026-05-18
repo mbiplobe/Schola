@@ -3,7 +3,6 @@ using Schola.Shared.Abstractions.Domains;// Ensure this is the correct namespace
 
 public class UserEntity : AggregateRoot<EntityID>
 {
-    public EntityID Id { get; private set; }
     public FullName Name { get; private set; }
     public Email Email { get; private set; }
     public Mobile Mobile { get; private set; }
@@ -13,15 +12,11 @@ public class UserEntity : AggregateRoot<EntityID>
     // public UserType TypeUser { get; private set; }
 
     public UserEntity(
-        EntityID id,
         FullName name,
         Email email,
         Mobile mobile,
         Password password)
     {
-        Id = id
-            ?? throw new UserInvalidException("Id is required.");
-
         Name = name
             ?? throw new UserInvalidException("Name is required.");
 
@@ -35,7 +30,7 @@ public class UserEntity : AggregateRoot<EntityID>
             ?? throw new UserInvalidException("Password is required.");
 
 
-        AddEvent(new UserRegisteredEvent(Id, Name, Email, Mobile, Password));
+        AddEvent(new UserRegisteredEvent(Name, Email, Mobile, Password));
     }
 
     public void ChangeEmail(Email newEmail)
@@ -45,7 +40,7 @@ public class UserEntity : AggregateRoot<EntityID>
         var oldEmail = Email;
         Email = newEmail;
 
-        AddEvent(new UserEmailChangedEvent(Id, oldEmail, newEmail));
+        AddEvent(new UserEmailChangedEvent(oldEmail, newEmail));
     }
 
     public void ChangeMobile(Mobile newMobile)
@@ -55,7 +50,7 @@ public class UserEntity : AggregateRoot<EntityID>
         var oldMobile = Mobile;
         Mobile = newMobile;
 
-        AddEvent(new UserMobileChangedEvent(Id, oldMobile, newMobile));
+        AddEvent(new UserMobileChangedEvent(oldMobile, newMobile));
     }
 
     public void ChangeProfile(FullName newName)
@@ -65,7 +60,7 @@ public class UserEntity : AggregateRoot<EntityID>
         var oldName = Name;
         Name = newName;
 
-        AddEvent(new UserProfileUpdatedEvent(Id, newName));
+        AddEvent(new UserProfileUpdatedEvent( newName));
     }
 
     public void DeactivateAccount()
@@ -80,7 +75,7 @@ public class UserEntity : AggregateRoot<EntityID>
         var oldPassword = Password;
         Password = newPassword;
 
-        AddEvent(new UserPasswordChangedEvent(Id, newPassword, oldPassword));
+        AddEvent(new UserPasswordChangedEvent(newPassword, oldPassword));
     }
     
     public bool ValidatePassword(string password)

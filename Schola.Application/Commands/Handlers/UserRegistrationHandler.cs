@@ -3,7 +3,6 @@ using Schola.Shared.Abstractions.Commands;
 
 class UserRegistrationHandler(IUserRepository _repository, IUserFactory _factory) : ICommandHandler<CreateUserCommand>
 {
-
     public async Task HandleAsync(CreateUserCommand command)
     {
 
@@ -15,8 +14,6 @@ class UserRegistrationHandler(IUserRepository _repository, IUserFactory _factory
             command.Mobile,
             command.Password
         );
-
-        userEntity.
 
         await _repository.AddAsync(userEntity);
     }

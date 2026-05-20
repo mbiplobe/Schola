@@ -29,17 +29,14 @@ internal class StudentFeeReadModel : BaseModel
 }
 
 
-internal class PaymentMethodReadModel
+internal class PaymentMethodReadModel : BaseModel
 {
-    public long Id { get; set; }
     public string Method { get; set; } = default!;
 }
 
 
-internal class PaymentReadModel
+internal class PaymentReadModel : BaseModel
 {
-    public long Id { get; set; }
-
     public long StudentFeeId { get; set; }
     public StudentFeeReadModel StudentFee { get; set; } = default!;
 

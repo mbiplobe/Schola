@@ -1,9 +1,7 @@
 namespace Schola.Infrastructure.EF.Models;
 
-internal class SubjectReadModel
+internal class SubjectReadModel : BaseModel
 {
-    public long Id { get; set; }
-
     public string Name { get; set; } = default!;
     public string? Code { get; set; }
 
@@ -14,10 +12,8 @@ internal class SubjectReadModel
 }
 
 
-internal class TeacherSubjectReadModel
+internal class TeacherSubjectReadModel : BaseModel
 {
-    public long Id { get; set; }
-
     public long TeacherId { get; set; }
     public TeacherReadModel Teacher { get; set; } = default!;
 
@@ -30,6 +26,4 @@ internal class TeacherSubjectReadModel
     public long DivisionId { get; set; }
     public DivisionReadModel Division { get; set; } = default!;
 
-    public DateTime CreatedDate { get; set; }
-    public string CreatedBy { get; set; } = default!;
 }

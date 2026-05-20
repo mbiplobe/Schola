@@ -1,8 +1,7 @@
 namespace Schola.Infrastructure.EF.Models;
 
-internal class ClassRoutineReadModel
+internal class ClassRoutineReadModel : BaseModel
 {
-    public long Id { get; set; }
 
     public long ClassId { get; set; }
     public ClassReadModel Class { get; set; } = default!;

@@ -1,9 +1,7 @@
 namespace Schola.Infrastructure.EF.Models;
 
-internal class StudentReadModel
+internal class StudentReadModel : BaseModel
 {
-    public long Id { get; set; }
-
     public long? UserId { get; set; }
     public UserReadModel? User { get; set; }
 
@@ -33,12 +31,4 @@ internal class StudentReadModel
     public string? GuardianName { get; set; }
 
     public string? GuardianPhone { get; set; }
-
-    public DateTime CreatedDate { get; set; }
-
-    public string CreatedBy { get; set; } = default!;
-
-    public DateTime? UpdatedDate { get; set; }
-
-    public string? UpdatedBy { get; set; }
 }

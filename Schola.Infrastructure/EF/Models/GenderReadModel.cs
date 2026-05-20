@@ -1,8 +1,6 @@
 namespace Schola.Infrastructure.EF.Models;
 
-internal class GenderReadModel
+internal class GenderReadModel : BaseModel
 {
-    public long Id { get; set; }
-
     public string Gender { get; set; } = default!;
 }

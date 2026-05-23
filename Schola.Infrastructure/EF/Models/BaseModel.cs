@@ -6,4 +6,12 @@ internal class BaseModel
     public string CreatedBy { get; set; } = default!;
     public DateTime? UpdatedDate { get; set; }
     public string? UpdatedBy { get; set; }
+    public string? Action { get; set; }
+}
+
+public enum ActionType
+{
+    Create,
+    Update,
+    Delete
 }

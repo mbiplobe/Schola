@@ -2,19 +2,19 @@ namespace Schola.Infrastructure.EF.Models;
 
 internal class UserReadModel : BaseModel
 {
-    public Guid UUID { get; set; }
+    public Guid ID { get; set; }
     public string FullName { get; set; } = default!;
     public string? Email { get; set; }
-    public string? Phone { get; set; }
-    public string PasswordHash { get; set; } = default!;
+    public string? Mobile { get; set; }
+    public string Password { get; set; } = default!;
     public bool IsActive { get; set; }
 
 
-    public StudentReadModel? Student { get; set; }
-    public TeacherReadModel? Teacher { get; set; }
+    // public StudentReadModel? Student { get; set; }
+    // public TeacherReadModel? Teacher { get; set; }
 
-    public ICollection<AssignedRoleReadModel> AssignedRoles { get; set; } = new List<AssignedRoleReadModel>();
-    public ICollection<MapUserAddressReadModel> UserAddresses { get; set; } = new List<MapUserAddressReadModel>();
+    // public ICollection<AssignedRoleReadModel> AssignedRoles { get; set; } = new List<AssignedRoleReadModel>();
+    // public ICollection<MapUserAddressReadModel> UserAddresses { get; set; } = new List<MapUserAddressReadModel>();
 }
 
 internal class MapUserAddressReadModel

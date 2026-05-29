@@ -1,6 +1,6 @@
 namespace Schola.Application.Services;
 
-public interface ISampleEntityReadService
+public interface IUserEntityReadService
 {
     Task<bool> ExistsByNameAsync(string name);
 }

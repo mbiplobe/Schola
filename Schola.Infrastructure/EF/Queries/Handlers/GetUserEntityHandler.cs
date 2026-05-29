@@ -1,0 +1,22 @@
+
+using Schola.Infrastructure.EF.Contexts;
+using Schola.Shared.Abstractions.Queries;
+using Microsoft.EntityFrameworkCore;
+using Schola.Infrastructure.EF.Models;
+
+namespace Schola.Infrastructure.EF.Queries.Handlers;
+
+internal sealed class GetUserEntityHandler : IQueryHandler<GetUserEntity, UserEntityDto>
+{
+    private readonly DbSet<UserReadModel> _UserEntities;
+
+    public GetUserEntityHandler(ReadDbContext context)
+        => _UserEntities = context.Users;
+
+    public Task<UserEntityDto> HandleAsync(GetUserEntity query)
+        => _UserEntities
+            .Where(pl => pl.ID == query.Id)
+            .Select(pl => pl.AsDto())
+            .AsNoTracking()
+            .SingleOrDefaultAsync();
+}

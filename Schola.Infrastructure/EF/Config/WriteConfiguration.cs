@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Schola.Infrastructure.EF.Models;
 
 namespace Schola.Infrastructure.EF.Config;
 
@@ -45,7 +44,7 @@ internal sealed class WriteConfiguration : IEntityTypeConfiguration<UserEntity>
         builder.Property(x => x.Mobile)
               .HasConversion(
                    mobile => mobile.Value,          // Save to DB
-                   value => new Mobile(value))  // Read from DB
+                   value => new Phone(value))  // Read from DB
               .HasMaxLength(11)
               .IsRequired();
 

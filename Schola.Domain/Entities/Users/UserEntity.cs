@@ -4,7 +4,7 @@ public class UserEntity : AggregateRoot<EntityID>
 {
     public FullName Name { get; private set; } = default!;
     public Email Email { get; private set; } = default!;
-    public Mobile Mobile { get; private set; } = default!;
+    public Phone Mobile { get; private set; } = default!;
     public Password Password { get; private set; } = default!;
 
     // EF Core constructor
@@ -16,7 +16,7 @@ public class UserEntity : AggregateRoot<EntityID>
         EntityID entityId,
         FullName name,
         Email email,
-        Mobile mobile,
+        Phone mobile,
         Password password)
     {
         Id = entityId
@@ -47,7 +47,7 @@ public class UserEntity : AggregateRoot<EntityID>
         AddEvent(new UserEmailChangedEvent(oldEmail, newEmail));
     }
 
-    public void ChangeMobile(Mobile newMobile)
+    public void ChangeMobile(Phone newMobile)
     {
         if (Mobile == newMobile) return;
 

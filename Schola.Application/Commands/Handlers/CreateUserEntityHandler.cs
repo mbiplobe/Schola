@@ -17,7 +17,7 @@ internal sealed class CreateUserEntityHandler : ICommandHandler<CreateUserComman
 
         var fullName = new FullName(command.FirstName, command.MiddleName, command.LastName);
         var email = new Email(command.Email);
-        var mobile = new Mobile(command.Mobile);
+        var mobile = new Phone(command.Mobile);
         var password = new Password(command.Password);
 
         var user = new UserEntity(

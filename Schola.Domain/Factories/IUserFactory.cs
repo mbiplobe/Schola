@@ -13,7 +13,7 @@ public abstract class UserFactoryBase : IUserFactory
         var id = EntityID.NewId();
         var name = new FullName(firstName, middleName, lastName);
         var emailVo = new Email(email);
-        var mobileVo = new Mobile(mobile);
+        var mobileVo = new Phone(mobile);
         var passwordVo = new Password(password);
 
         var user = CreateEntity(id, name, emailVo, mobileVo,passwordVo);
@@ -21,5 +21,5 @@ public abstract class UserFactoryBase : IUserFactory
         return user;
     }
 
-    protected abstract UserEntity CreateEntity(EntityID id, FullName name, Email email, Mobile mobile, Password password);
+    protected abstract UserEntity CreateEntity(EntityID id, FullName name, Email email, Phone mobile, Password password);
 }

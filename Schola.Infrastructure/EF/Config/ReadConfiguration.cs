@@ -9,7 +9,7 @@ namespace Schola.Infrastructure.EF.Config;
 
     public void Configure(EntityTypeBuilder<UserReadModel> builder)
     {
-        builder.ToTable("Users");
+        builder.ToTable("users");
         builder.HasKey(pl => pl.ID);
 
         builder.Property(x => x.FullName)
@@ -21,7 +21,7 @@ namespace Schola.Infrastructure.EF.Config;
 
         builder.Property(x => x.Password);
 
-        builder.Property(x => x.IsActive);
+        // builder.Property(x => x.IsActive);
 
     }
 

@@ -12,10 +12,10 @@ public class LoginController(ICommandDispatcher commandDispatcher, IQueryDispatc
     //     return OkOrNotFound(result);
     // }
 
-    [HttpPost]
-    public async Task<IActionResult> Login(LoginCommand command)
-    {
-        var result = await commandDispatcher.DispatchAsync(command);
-        return OkOrNotFound(result);
-    }
+    // [HttpPost]
+    // public async Task<IActionResult> Login(LoginCommand command)
+    // {
+    //     // var result = await commandDispatcher.DispatchAsync(command);
+    //     return OkOrNotFound(null);
+    // }
 }

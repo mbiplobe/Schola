@@ -1,25 +1,25 @@
-using Schola.Application.DTOs;
-using Schola.Infrastructure.EF.Models;
+// using Schola.Application.DTOs;
+// using Schola.Infrastructure.EF.Models;
 
 namespace Schola.Infrastructure.EF.Queries;
 
 internal static class Extensions
 {
-    public static SampleEntityDto AsDto(this SampleEntityReadModel readModel)
-        => new SampleEntityDto(
+    // public static SampleEntityDto AsDto(this  readModel)
+    //     => new SampleEntityDto(
 
-            Id: readModel.Id,
-            Name: readModel.Name,
-            Destination: new DestinationDto
-            (
-                City: readModel.Destination?.City,
-                Country: readModel.Destination?.Country
-            ),
-            Items: readModel.Items?.Select(pi => new SampleEntityItemDto
-            (
-                Name: pi.Name,
-                Quantity: pi.Quantity,
-                IsTaken: pi.IsTaken
-            )
-            ));
+    //         Id: readModel.Id,
+    //         Name: readModel.Name,
+    //         Destination: new DestinationDto
+    //         (
+    //             City: readModel.Destination?.City,
+    //             Country: readModel.Destination?.Country
+    //         ),
+    //         Items: readModel.Items?.Select(pi => new SampleEntityItemDto
+    //         (
+    //             Name: pi.Name,
+    //             Quantity: pi.Quantity,
+    //             IsTaken: pi.IsTaken
+    //         )
+    //         ));
 }

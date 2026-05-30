@@ -12,11 +12,15 @@ internal sealed class GetUserEntityHandler : IQueryHandler<GetUserEntity, UserEn
 
     public GetUserEntityHandler(ReadDbContext context)
         => _UserEntities = context.Users;
-
-    public Task<UserEntityDto> HandleAsync(GetUserEntity query)
-        => _UserEntities
-            .Where(pl => pl.ID == query.Id)
-            .Select(pl => pl.AsDto())
-            .AsNoTracking()
-            .SingleOrDefaultAsync();
+public Task<UserEntityDto?> HandleAsync(GetUserEntity query)
+    => _UserEntities
+        .AsNoTracking()
+        .Where(x => x.ID == query.Id)
+        .Select(x => new UserEntityDto(
+            x.ID,
+            x.FullName,
+            x.Email,
+            x.Mobile
+        ))
+        .SingleOrDefaultAsync();
 }

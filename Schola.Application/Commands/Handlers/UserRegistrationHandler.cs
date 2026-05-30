@@ -1,20 +1,20 @@
-using Schola.Domain.Repositories;
-using Schola.Shared.Abstractions.Commands;
+// using Schola.Domain.Repositories;
+// using Schola.Shared.Abstractions.Commands;
 
-class UserRegistrationHandler(IUserRepository _repository, IUserFactory _factory) : ICommandHandler<CreateUserCommand>
-{
-    public async Task HandleAsync(CreateUserCommand command)
-    {
+// class UserRegistrationHandler(IUserRepository _repository, IUserFactory _factory) : ICommandHandler<CreateUserCommand>
+// {
+//     public async Task HandleAsync(CreateUserCommand command)
+//     {
 
-        var userEntity = _factory.Create(
-            command.FirstName,
-            command.MiddleName ?? string.Empty,
-            command.LastName,
-            command.Email,
-            command.Mobile,
-            command.Password
-        );
+//         var userEntity = _factory.Create(
+//             command.FirstName,
+//             command.MiddleName ?? string.Empty,
+//             command.LastName,
+//             command.Email,
+//             command.Mobile,
+//             command.Password
+//         );
 
-        await _repository.AddAsync(userEntity);
-    }
-}
+//         await _repository.AddAsync(userEntity);
+//     }
+// }

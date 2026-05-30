@@ -1,6 +1,7 @@
 using Schola.Shared.Abstractions.Commands;
 
-public record CreateUserCommand(Guid EntityId,
+public record CreateUserCommand(
+Guid? Id,
 string FirstName,
 string? MiddleName,
 string LastName,

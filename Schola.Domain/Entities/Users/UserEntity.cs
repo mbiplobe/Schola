@@ -1,22 +1,27 @@
-using SchoolManagement.Domain.ValueObjects;
-using Schola.Shared.Abstractions.Domains;// Ensure this is the correct namespace for UserRegisteredEvent
+using Schola.Shared.Abstractions.Domains;
 
 public class UserEntity : AggregateRoot<EntityID>
 {
-    public FullName Name { get; private set; }
-    public Email Email { get; private set; }
-    public Mobile Mobile { get; private set; }
+    public FullName Name { get; private set; } = default!;
+    public Email Email { get; private set; } = default!;
+    public Mobile Mobile { get; private set; } = default!;
+    public Password Password { get; private set; } = default!;
 
-    public Password Password { get; private set; }
-
-    // public UserType TypeUser { get; private set; }
+    // EF Core constructor
+    private UserEntity()
+    {
+    }
 
     public UserEntity(
+        EntityID entityId,
         FullName name,
         Email email,
         Mobile mobile,
         Password password)
     {
+        Id = entityId
+            ?? throw new UserInvalidException("User Identity is required.");
+
         Name = name
             ?? throw new UserInvalidException("Name is required.");
 
@@ -28,7 +33,6 @@ public class UserEntity : AggregateRoot<EntityID>
 
         Password = password
             ?? throw new UserInvalidException("Password is required.");
-
 
         AddEvent(new UserRegisteredEvent(Name, Email, Mobile, Password));
     }
@@ -57,15 +61,9 @@ public class UserEntity : AggregateRoot<EntityID>
     {
         if (Name == newName) return;
 
-        var oldName = Name;
         Name = newName;
 
-        AddEvent(new UserProfileUpdatedEvent( newName));
-    }
-
-    public void DeactivateAccount()
-    {
-        AddEvent(new UserAccountDeactivatedEvent(Id));
+        AddEvent(new UserProfileUpdatedEvent(newName));
     }
 
     public void ChangePassword(Password newPassword)
@@ -77,22 +75,12 @@ public class UserEntity : AggregateRoot<EntityID>
 
         AddEvent(new UserPasswordChangedEvent(newPassword, oldPassword));
     }
-    
-    public bool ValidatePassword(string password)
+
+    public void DeactivateAccount()
     {
-        return Password.Verify(password);
+        AddEvent(new UserAccountDeactivatedEvent(Id));
     }
 
-
-
-    
-
-
-    // public void DetectLogin()
-    // {
-    //     AddEvent(new UserLoginDetectedEvent(Id, Password, Password));
-    // }
-
+    public bool ValidatePassword(string password)
+        => Password.Verify(password);
 }
-
-// public sealed record UserRegisteredEvent(EntityID Id, FullName Name, Email Email, Mobile Mobile, Password Password) : IDomainEvent;

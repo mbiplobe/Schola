@@ -15,7 +15,8 @@
       "launchUrl": "swagger",
       "applicationUrl": "http://localhost:5098",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "DOTNET_DUMP_ENABLE": "1"
       },
       "dotnetRunMessages": true
     },
@@ -25,7 +26,8 @@
       "launchUrl": "swagger",
       "applicationUrl": "https://localhost:7256;http://localhost:5098",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "DOTNET_DUMP_ENABLE": "1"
       },
       "dotnetRunMessages": true
     },

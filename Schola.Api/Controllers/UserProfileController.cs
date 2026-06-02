@@ -17,7 +17,7 @@ public class UserProfileController : BaseController
     }
 
     [HttpGet("{id:guid}")]
-    public async Task<ActionResult<UserEntityDto>> Get([FromRoute] GetUserEntity query)
+    public async Task<ActionResult<UserEntityDto>> GetEntityById([FromRoute] GetUserEntity query)
     {
         var result = await _queryDispatcher.QueryAsync(query);
         return OkOrNotFound(result);

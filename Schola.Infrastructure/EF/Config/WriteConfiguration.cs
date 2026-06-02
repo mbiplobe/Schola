@@ -18,16 +18,16 @@ internal sealed class WriteConfiguration : IEntityTypeConfiguration<UserEntity>
         builder.OwnsOne(x => x.Name, name =>
          {
              name.Property(x => x.FirstName)
-                 .HasColumnName("FirstName")
+                 .HasColumnName("First_Name")
                  .HasMaxLength(100)
                  .IsRequired();
 
              name.Property(x => x.MiddleName)
-                 .HasColumnName("MiddleName")
+                 .HasColumnName("Middle_Name")
                  .HasMaxLength(100);
 
              name.Property(x => x.LastName)
-                 .HasColumnName("LastName")
+                 .HasColumnName("Last_Name")
                  .HasMaxLength(100)
                  .IsRequired();
          });

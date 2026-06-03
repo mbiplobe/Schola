@@ -2,7 +2,7 @@ namespace Schola.Shared.Abstractions.Domains;
 
     public abstract class AggregateRoot<T>
     {
-        public T Id { get; protected set; }
+        public T? Id { get; protected set; }
         public int Version { get; protected set; }
 
         private bool _versionIncremented;

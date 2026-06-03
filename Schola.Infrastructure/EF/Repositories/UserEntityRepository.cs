@@ -16,8 +16,8 @@ internal sealed class UserEntityRepository : IUserRepository
         _writeDbContext = writeDbContext;
     }
 
-    public Task<UserEntity> GetAsync(EntityID id)
-        => _userEntities.SingleOrDefaultAsync(pl => pl.Id == id);
+   public Task<UserEntity?> GetAsync(EntityID id)
+    => _userEntities.SingleOrDefaultAsync(pl => pl.Id == id);
 
     public async Task AddAsync(UserEntity userEntity)
     {

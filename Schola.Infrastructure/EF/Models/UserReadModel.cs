@@ -1,12 +1,24 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace Schola.Infrastructure.EF.Models;
 
-internal class UserReadModel : BaseModel
+internal class UserReadModel 
 {
     public Guid ID { get; set; }
-    public string FullName { get; set; } = default!;
+
+    public string? FirstName { get; set; }
+    public string? MiddleName { get; set; }
+    public string? LastName { get; set; }
+
     public string? Email { get; set; }
     public string? Mobile { get; set; }
     public string Password { get; set; } = default!;
+
+    [NotMapped]
+    public string FullName =>
+       $"{FirstName} {MiddleName} {LastName}"
+           .Replace("  ", " ")
+           .Trim();
     // public bool IsActive { get; set; }
 
 
@@ -54,7 +66,7 @@ internal class AddressTypeReadModel : BaseModel
 {
     public string AddressType { get; set; } = default!;
 
-       public ICollection<AddressReadModel> Addresses { get; set; }
-        = new List<AddressReadModel>();
+    public ICollection<AddressReadModel> Addresses { get; set; }
+     = new List<AddressReadModel>();
 
 }

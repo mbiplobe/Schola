@@ -17,11 +17,19 @@ public class UserProfileController : BaseController
     }
 
     [HttpGet("{id:guid}")]
-    public async Task<ActionResult<UserEntityDto>> GetEntityById([FromRoute] GetUserEntity query)
+    public async Task<ActionResult<UserEntityDto>> Get([FromRoute] GetUserEntity query)
     {
         var result = await _queryDispatcher.QueryAsync(query);
         return OkOrNotFound(result);
     }
+
+    // [HttpGet("{id:guid}")]
+    // public async Task<ActionResult<UserEntityDto>> GetEntityById(Guid id)
+    // {
+    //     return OkOrNotFound(
+    //         await _queryDispatcher.QueryAsync(new GetUserEntity(id))
+    //     );
+    // }
 
     [HttpGet]
     public async Task<ActionResult<IEnumerable<UserEntityDto>>> Get([FromQuery] SearchUserEntity query)

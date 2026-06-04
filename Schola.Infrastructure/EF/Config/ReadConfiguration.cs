@@ -12,7 +12,6 @@ internal sealed class ReadConfiguration : IEntityTypeConfiguration<UserReadModel
         builder.ToTable("users");
         builder.HasKey(pl => pl.ID);
 
-
         builder.Property(x => x.FirstName)
         .HasColumnName("First_Name")
                  .HasMaxLength(100)

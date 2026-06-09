@@ -6,6 +6,7 @@ namespace Schola.Infrastructure.EF.Contexts;
 internal sealed class WriteDbContext : DbContext
 {
     public DbSet<UserEntity> Users { get; set; }
+    public DbSet<ClassEntity> Classes { get; set; }
 
 
 

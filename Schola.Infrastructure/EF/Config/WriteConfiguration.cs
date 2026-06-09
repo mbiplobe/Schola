@@ -3,7 +3,8 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Schola.Infrastructure.EF.Config;
 
-internal sealed class WriteConfiguration : IEntityTypeConfiguration<UserEntity>
+internal sealed class WriteConfiguration : IEntityTypeConfiguration<UserEntity>,
+    IEntityTypeConfiguration<ClassEntity> 
 {
     public void Configure(EntityTypeBuilder<UserEntity> builder)
     {
@@ -59,16 +60,44 @@ internal sealed class WriteConfiguration : IEntityTypeConfiguration<UserEntity>
        
     }
 
-    // public void Configure(EntityTypeBuilder<SampleEntityItem> builder)
-    // {
-    //     builder.Property<Guid>("Id");
-    //     builder.Property(pi => pi.Name);
-    //     builder.Property(pi => pi.Quantity);
-    //     builder.Property(pi => pi.IsTaken);
-    //     builder.ToTable("SampleEntityItems");
-    // }
-    // public void Configure(EntityTypeBuilder<UserReadModel> builder)
-    // {
-    //     builder.ToTable("Users");
-    // }
+    public void Configure(EntityTypeBuilder<ClassEntity> builder)
+    {
+        builder.ToTable("classes");
+
+        builder.HasKey(x => x.Id);
+
+        builder.Property(x => x.Id)
+            .HasColumnName("id")
+            .ValueGeneratedOnAdd();
+
+        builder.Property(x => x.Name)
+            .HasColumnName("name")
+            .HasConversion(
+                name => name.Value,
+                value => new ClassName(value))
+            .HasMaxLength(50)
+            .IsRequired();
+
+        builder.Property(x => x.Description)
+            .HasColumnName("description")
+            .HasColumnType("text");
+
+        builder.Property(x => x.CreatedDate)
+            .HasColumnName("created_date")
+            .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+        builder.Property(x => x.CreatedBy)
+            .HasColumnName("created_by")
+            .HasMaxLength(50)
+            .IsRequired();
+
+        builder.Property(x => x.UpdatedDate)
+            .HasColumnName("updated_date")
+            .ValueGeneratedOnAddOrUpdate();
+
+        builder.Property(x => x.UpdatedBy)
+            .HasColumnName("updated_by")
+            .HasMaxLength(50);
+    }
+
 }

@@ -3,21 +3,28 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Schola.Shared.Queries;
 
-    internal sealed class InMemoryQueryDispatcher : IQueryDispatcher
+internal sealed class InMemoryQueryDispatcher : IQueryDispatcher
+{
+    private readonly IServiceProvider _serviceProvider;
+
+    public InMemoryQueryDispatcher(IServiceProvider serviceProvider)
+        => _serviceProvider = serviceProvider;
+
+    public async Task<TResult> QueryAsync<TResult>(IQuery<TResult> query)
     {
-        private readonly IServiceProvider _serviceProvider;
-
-        public InMemoryQueryDispatcher(IServiceProvider serviceProvider)
-            => _serviceProvider = serviceProvider;
-
-        public async Task<TResult> QueryAsync<TResult>(IQuery<TResult> query)
+        try
         {
             using var scope = _serviceProvider.CreateScope();
-            var handlerType = typeof(IQueryHandler<,>).MakeGenericType(query.GetType(), typeof(TResult));
-            var handler = scope.ServiceProvider.GetRequiredService(handlerType);
 
-            return await (Task<TResult>)handlerType.GetMethod(nameof(IQueryHandler<IQuery<TResult>, TResult>.HandleAsync))?
-                .Invoke(handler, new[] { query });
+            var handler = scope.ServiceProvider
+                .GetRequiredService<IQueryHandler<IQuery<TResult>, TResult>>();
+
+            return await handler.HandleAsync(query);
+        }
+        catch (Exception e)
+        {
+            throw new Exception($"Error dispatching query of type {query.GetType().Name}: {e.Message}");
         }
     }
+}
 

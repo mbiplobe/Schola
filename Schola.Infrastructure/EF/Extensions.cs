@@ -15,6 +15,7 @@ internal static class Extensions
 {
     public static IServiceCollection AddSQLDB(this IServiceCollection services, IConfiguration configuration)
     {
+          services.AddScoped<IClassRepository, ClassEntityRepository>();
         services.AddScoped<IUserRepository, UserEntityRepository>();
         services.AddScoped<IUserEntityReadService, UserEntityReadService>();
 

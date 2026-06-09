@@ -1,23 +1,4 @@
-// public record FullName
-// {
-//     public string Value { get; }
 
-//     public FullName(string value, string lastName)
-//     {
-//         if (string.IsNullOrWhiteSpace(value))
-//         {
-//             throw new UserInvalidException( "Full name is required.");
-//         }
-
-//         Value = value;
-//     }
-
-//     public static implicit operator string(FullName name)
-//         => name.Value;
-
-//     public static implicit operator FullName(string name)
-//         => new(name);
-// }
 
 public sealed record FullName
 {

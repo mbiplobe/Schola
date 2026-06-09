@@ -14,15 +14,24 @@ internal sealed class GetUserEntityHandler : IQueryHandler<GetUserEntity, UserEn
         => _UserEntities = context.Users;
     public async Task<UserEntityDto> HandleAsync(GetUserEntity query)
     {
-        return await _UserEntities
-            .AsNoTracking()
-            .Where(x => x.ID == query.Id)
-            .Select(x => new UserEntityDto(
-                x.ID,
-                x.FullName,
-                x.Email,
-                x.Mobile
-            ))
-            .SingleAsync();
+        try
+        {
+            var result = await _UserEntities
+                .AsNoTracking()
+                .Where(x => x.ID == query.Id && x.IsActive == true)
+                .FirstOrDefaultAsync();
+
+            if (result == null)
+            {
+                throw new KeyNotFoundException($"User with ID {query.Id} not found.");
+            }
+
+            return result.AsDto();
+        }
+        catch (Exception ex)
+        {
+            // Log the exception (not implemented here)
+            throw new Exception($"Error fetching user with ID {query.Id}: {ex.Message}");
+        }
     }
 }

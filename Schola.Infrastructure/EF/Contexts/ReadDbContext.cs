@@ -6,6 +6,10 @@ namespace Schola.Infrastructure.EF.Contexts;
 
 internal sealed class ReadDbContext : DbContext
 {
+    public DbSet<StudentReadModel> Students { get; set; }
+    public DbSet<GuardianReadModel> Guardians { get; set; }
+    public DbSet<StudentGuardianMapReadModel> StudentGuardianMaps { get; set; }
+    public DbSet<GuardianRelationshipReadModel> GuardianRelationships { get; set; }
     public DbSet<UserReadModel> Users { get; set; }
 
     public ReadDbContext(DbContextOptions<ReadDbContext> options) : base(options)

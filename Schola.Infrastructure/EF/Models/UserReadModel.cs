@@ -19,10 +19,10 @@ internal class UserReadModel
        $"{FirstName} {MiddleName} {LastName}"
            .Replace("  ", " ")
            .Trim();
-    // public bool IsActive { get; set; }
+    public bool IsActive { get; set; }
 
 
-    // public StudentReadModel? Student { get; set; }
+    public StudentReadModel? Student { get; set; }
     // public TeacherReadModel? Teacher { get; set; }
 
     // public ICollection<AssignedRoleReadModel> AssignedRoles { get; set; } = new List<AssignedRoleReadModel>();

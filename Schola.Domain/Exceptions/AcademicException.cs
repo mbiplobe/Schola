@@ -1,5 +1,10 @@
 using Schola.Shared.Abstractions.Exceptions;
 
-public class UserInvalidException(string message) : PublicException(message)
+public class ClassInvalidException(string message) : PublicException(message)
 {
 }
+
+public class SectionInvalidException(string message) : PublicException(message)
+{
+}
+

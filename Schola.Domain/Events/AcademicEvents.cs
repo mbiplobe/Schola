@@ -25,3 +25,18 @@ public sealed record ClassDescriptionChangedEvent(
 public sealed record ClassDeletedEvent(
     long ClassId
 ) : IDomainEvent;
+
+//////////////////////////////////////
+public sealed record SectionCreatedEvent(
+    SectionName Name,
+    string CreatedBy
+) : IDomainEvent;
+
+public sealed record SectionUpdatedEvent(
+    long SectionId,
+    SectionName Name
+) : IDomainEvent;
+
+public sealed record SectionDeletedEvent(
+    long SectionId
+) : IDomainEvent;

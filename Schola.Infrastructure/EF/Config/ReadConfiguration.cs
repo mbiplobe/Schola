@@ -4,7 +4,13 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Schola.Infrastructure.EF.Config;
 
-internal sealed class ReadConfiguration : IEntityTypeConfiguration<UserReadModel>, IEntityTypeConfiguration<StudentReadModel>, IEntityTypeConfiguration<GuardianReadModel>, IEntityTypeConfiguration<GuardianRelationshipReadModel>,IEntityTypeConfiguration<StudentGuardianMapReadModel>
+internal sealed class ReadConfiguration :
+IEntityTypeConfiguration<ClassReadModel>,
+IEntityTypeConfiguration<UserReadModel>,
+IEntityTypeConfiguration<StudentReadModel>,
+IEntityTypeConfiguration<GuardianReadModel>,
+IEntityTypeConfiguration<GuardianRelationshipReadModel>,
+IEntityTypeConfiguration<StudentGuardianMapReadModel>
 {
 
     public void Configure(EntityTypeBuilder<UserReadModel> builder)
@@ -157,7 +163,41 @@ internal sealed class ReadConfiguration : IEntityTypeConfiguration<UserReadModel
             .OnDelete(DeleteBehavior.Restrict);
     }
 
+    public void Configure(EntityTypeBuilder<ClassReadModel> builder)
+    {
+        builder.ToTable("classes");
 
+        builder.HasKey(x => x.Id);
+
+        builder.Property(x => x.Id)
+            .HasColumnName("id");
+
+        builder.Property(x => x.Name)
+            .HasColumnName("name")
+            .HasMaxLength(50)
+            .IsRequired();
+
+        builder.Property(x => x.Description)
+            .HasColumnName("description")
+            .HasColumnType("text");
+            
+        builder.Property(x => x.CreatedDate)
+        .HasColumnName("created_date")
+        .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+    builder.Property(x => x.CreatedBy)
+        .HasColumnName("created_by")
+        .HasMaxLength(50)
+        .IsRequired();
+
+    builder.Property(x => x.UpdatedDate)
+        .HasColumnName("updated_date")
+        .ValueGeneratedOnAddOrUpdate();
+
+    builder.Property(x => x.UpdatedBy)
+        .HasColumnName("updated_by")
+        .HasMaxLength(50);
+    }
 }
 
 

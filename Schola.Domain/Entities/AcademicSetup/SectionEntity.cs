@@ -1,9 +1,8 @@
 using Schola.Shared.Abstractions.Domains;
 
-public sealed class ClassEntity : AggregateRoot<long>
+public sealed class SectionEntity : AggregateRoot<long>
 {
-    public ClassName Name { get; private set; }
-    public string? Description { get; private set; }
+    public SectionName Name { get; private set; }
 
     public DateTime CreatedDate { get; private set; }
     public string CreatedBy { get; private set; } 
@@ -11,27 +10,23 @@ public sealed class ClassEntity : AggregateRoot<long>
     public string? UpdatedBy { get; private set; }
 
     // EF Core constructor
-    private ClassEntity()
+    private SectionEntity()
     {
     }
 
-    public ClassEntity(
-        ClassName name,
-        string? description,
-        string createdBy)
+    public SectionEntity(SectionName name,string createdBy)
     {
         Name = name;
-        Description = description;
         CreatedBy = !string.IsNullOrWhiteSpace(createdBy)
             ? createdBy
             : throw new ClassInvalidException("Created by is required.");
 
         CreatedDate = DateTime.UtcNow;
 
-        AddEvent(new ClassCreatedEvent(Name, Description, CreatedBy));
+        AddEvent(new SectionCreatedEvent(Name, CreatedBy));
     }
 
-    public void ChangeName(ClassName newName, string updatedBy)
+    public void ChangeName(SectionName newName, string updatedBy)
     {
         if (Name == newName) return;
 
@@ -41,19 +36,9 @@ public sealed class ClassEntity : AggregateRoot<long>
         AddEvent(new ClassNameChangedEvent(Id, newName));
     }
 
-    public void ChangeDescription(string? newDescription, string updatedBy)
-    {
-        if (Description == newDescription) return;
 
-        Description = newDescription;
-        SetUpdatedBy(updatedBy);
-
-        AddEvent(new ClassDescriptionChangedEvent(Id, newDescription));
-    }
-
-    public void UpdateProfile(
-        ClassName name,
-        string? description,
+    public void UpdateSectionName(
+        SectionName name,
         string updatedBy)
     {
         var hasChanged = false;
@@ -64,22 +49,16 @@ public sealed class ClassEntity : AggregateRoot<long>
             hasChanged = true;
         }
 
-        if (Description != description)
-        {
-            Description = description;
-            hasChanged = true;
-        }
-
         if (!hasChanged) return;
 
         SetUpdatedBy(updatedBy);
 
-        AddEvent(new ClassUpdatedEvent(Id, Name, Description));
+        AddEvent(new SectionUpdatedEvent(Id, Name));
     }
 
     public void Delete()
     {
-        AddEvent(new ClassDeletedEvent(Id));
+        AddEvent(new SectionDeletedEvent(Id));
     }
 
 
@@ -87,7 +66,7 @@ public sealed class ClassEntity : AggregateRoot<long>
     {
         UpdatedBy = !string.IsNullOrWhiteSpace(updatedBy)
             ? updatedBy
-            : throw new ClassInvalidException("Updated by is required.");
+            : throw new SectionInvalidException("Updated by is required.");
 
         UpdatedDate = DateTime.UtcNow;
     }

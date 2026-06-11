@@ -11,7 +11,7 @@ internal sealed class GetUserEntityHandler : IQueryHandler<GetUserEntity, UserEn
     private readonly DbSet<UserReadModel> _UserEntities;
 
     public GetUserEntityHandler(ReadDbContext context)
-        => _UserEntities = context.Users;
+        => _UserEntities = context.Users;   
     public async Task<UserEntityDto> HandleAsync(GetUserEntity query)
     {
         try

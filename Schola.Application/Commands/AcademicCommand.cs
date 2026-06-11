@@ -14,3 +14,16 @@ public sealed record UpdateClassCommand(
 ) : ICommand;
 
 public sealed record DeleteClassCommand(long Id) : ICommand;
+
+public sealed record CreateSectionCommand(
+    string Name,
+    string CreatedBy
+) : ICommand;
+
+public sealed record UpdateSectionCommand(
+    long Id,
+    SectionName Name,
+    string UpdatedBy
+) : ICommand;
+
+public sealed record DeleteSectionCommand(long Id) : ICommand;

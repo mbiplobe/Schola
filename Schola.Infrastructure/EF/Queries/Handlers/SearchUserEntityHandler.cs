@@ -1,7 +1,9 @@
+
+
+using Microsoft.EntityFrameworkCore;
 using Schola.Infrastructure.EF.Contexts;
 using Schola.Infrastructure.EF.Models;
 using Schola.Shared.Abstractions.Queries;
-using Microsoft.EntityFrameworkCore;
 
 namespace Schola.Infrastructure.EF.Queries.Handlers;
 

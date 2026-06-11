@@ -5,9 +5,9 @@ namespace Schola.Application.Commands.Handlers;
 
 internal sealed class CreateUserEntityHandler : ICommandHandler<CreateUserCommand>
 {
-    private readonly IUserRepository _repository;
+    private readonly ICRUDRepository<UserEntity, Guid> _repository;
 
-    public CreateUserEntityHandler(IUserRepository repository)
+    public CreateUserEntityHandler(ICRUDRepository<UserEntity, Guid> repository)
         => _repository = repository;
 
     public async Task HandleAsync(CreateUserCommand command)

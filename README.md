@@ -28,3 +28,9 @@ The core system is engineered to decouple business logic from external framework
 
 ### Frontend Integration
 *   **Asynchronous Scripting:** AJAX (for dynamic, non-blocking UI updates), JQuery, JavaScripts
+
+# Architecture Diagram
+
+![Architecture](Images/schola.jpeg)
+
+---

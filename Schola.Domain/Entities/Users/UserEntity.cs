@@ -78,7 +78,7 @@ public class UserEntity : AggregateRoot<EntityID>
 
     public void DeactivateAccount()
     {
-        AddEvent(new UserAccountDeactivatedEvent(Id));
+        AddEvent(new UserAccountDeactivatedEvent(Id ?? throw new InvalidOperationException("User ID is not set")));
     }
 
     public bool ValidatePassword(string password)

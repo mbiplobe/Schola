@@ -15,7 +15,11 @@ internal static class Extensions
 {
     public static IServiceCollection AddSQLDB(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddScoped<IClassRepository, ClassEntityRepository>();
+        // services.AddScoped<ISectionRepository, SectionRepository>();
+        // Register the concrete repository directly because ICRUDRepository<T, F> is a generic interface
+        // and must be closed with specific type arguments; if you have a closed generic interface
+        // (e.g. ICRUDRepository<ClassEntity, int>) prefer registering that instead.
+        services.AddScoped<ICRUDRepository<ClassEntity, long>,ClassEntityRepository>();
         services.AddScoped<IUserRepository, UserEntityRepository>();
         services.AddScoped<IUserEntityReadService, UserEntityReadService>();
 

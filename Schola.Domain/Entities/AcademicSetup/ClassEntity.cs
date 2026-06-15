@@ -2,6 +2,7 @@ using Schola.Shared.Abstractions.Domains;
 
 public sealed class ClassEntity : AggregateRoot<long>
 {
+    
     public ClassName Name { get; private set; }
     public string? Description { get; private set; }
 
@@ -16,10 +17,12 @@ public sealed class ClassEntity : AggregateRoot<long>
     }
 
     public ClassEntity(
+        long id,
         ClassName name,
         string? description,
         string createdBy)
     {
+        Id = id;
         Name = name;
         Description = description;
         CreatedBy = !string.IsNullOrWhiteSpace(createdBy)

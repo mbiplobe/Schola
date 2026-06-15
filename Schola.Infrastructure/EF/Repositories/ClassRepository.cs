@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Schola.Infrastructure.EF.Contexts;
 
-internal sealed class ClassEntityRepository : IClassRepository
+internal sealed class ClassEntityRepository : ICRUDRepository<ClassEntity, long>
 {
     private readonly DbSet<ClassEntity> _classEntities;
     private readonly WriteDbContext _writeDbContext;
@@ -12,26 +12,30 @@ internal sealed class ClassEntityRepository : IClassRepository
         _writeDbContext = writeDbContext;
     }
 
-   public Task<ClassEntity?> GetAsync(long id)
-    => _classEntities.SingleOrDefaultAsync(pl => pl.Id == id);
-
     public async Task AddAsync(ClassEntity classEntity)
     {
-        await _classEntities.AddAsync(classEntity);
-        await _writeDbContext.SaveChangesAsync();
-    }
-
-    public async Task UpdateAsync(ClassEntity classEntity)
-    {
-        _classEntities.Update(classEntity);
-        await _writeDbContext.SaveChangesAsync();
+       await _classEntities.AddAsync(classEntity);
+       await _writeDbContext.SaveChangesAsync();
     }
 
     public async Task DeleteAsync(ClassEntity classEntity)
     {
-        _classEntities.Remove(classEntity);
+          _classEntities.Remove(classEntity);
+          await _writeDbContext.SaveChangesAsync();
+    }
+
+    public async Task<ClassEntity> GetAsync(long id)
+    {
+        return await _classEntities.SingleAsync(pl => pl.Id == id);
+    }
+
+   
+    public async Task UpdateAsync(ClassEntity classEntity)
+    {
+         _classEntities.Update(classEntity);
         await _writeDbContext.SaveChangesAsync();
     }
+
 
 
 }

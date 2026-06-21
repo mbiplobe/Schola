@@ -1,13 +1,11 @@
-using Schola.Domain.Repositories;
-using Schola.Shared.Abstractions.Commands;
 
-namespace Schola.Application.Commands.Handlers;
+using Schola.Shared.Abstractions.Commands;
 
 internal sealed class CreateUserEntityHandler : ICommandHandler<CreateUserCommand>
 {
-    private readonly ICRUDRepository<UserEntity, Guid> _repository;
+    private readonly IUserEntityRepository _repository;
 
-    public CreateUserEntityHandler(ICRUDRepository<UserEntity, Guid> repository)
+    public CreateUserEntityHandler(IUserEntityRepository repository)
         => _repository = repository;
 
     public async Task HandleAsync(CreateUserCommand command)

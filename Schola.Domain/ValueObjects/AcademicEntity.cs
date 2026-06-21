@@ -30,32 +30,34 @@ public sealed record SectionName
     public override string ToString() => Value;
 }
 
-public sealed record ClassName
-{
-    public string Value { get; }
 
-    private static readonly Regex ClassRegex =
-        new(@"^[A-Za-z0-9\s\-]{1,50}$",
-            RegexOptions.Compiled);
 
-    public ClassName(string value)
-    {
-        if (string.IsNullOrWhiteSpace(value))
-            throw new ClassInvalidException("Class name is required.");
+// public sealed record ClassName
+// {
+//     public string Value { get; }
 
-        value = value.Trim();
+//     private static readonly Regex ClassRegex =
+//         new(@"^[A-Za-z0-9\s\-]{1,50}$",
+//             RegexOptions.Compiled);
 
-        if (!ClassRegex.IsMatch(value))
-            throw new ClassInvalidException("Invalid class name format.");
+//     public ClassName(string value)
+//     {
+//         if (string.IsNullOrWhiteSpace(value))
+//             throw new ClassInvalidException("Class name is required.");
 
-        Value = value;
-    }
+//         value = value.Trim();
 
-    public static implicit operator string(ClassName obj)
-        => obj?.Value ?? string.Empty;
+//         if (!ClassRegex.IsMatch(value))
+//             throw new ClassInvalidException("Invalid class name format.");
 
-    public static implicit operator ClassName(string value)
-        => new(value);
+//         Value = value;
+//     }
 
-    public override string ToString() => Value;
-}
+//     public static implicit operator string(ClassName obj)
+//         => obj?.Value ?? string.Empty;
+
+//     public static implicit operator ClassName(string value)
+//         => new(value);
+
+//     public override string ToString() => Value;
+// }

@@ -1,6 +1,5 @@
 using Schola.Infrastructure.EF;
 using Schola.Infrastructure.Logging;
-using Schola.Infrastructure.Services;
 using Schola.Shared.Abstractions.Commands;
 using Schola.Shared.Queries;
 using Microsoft.Extensions.Configuration;

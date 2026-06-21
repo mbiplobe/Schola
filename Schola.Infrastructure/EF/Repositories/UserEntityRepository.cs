@@ -1,11 +1,10 @@
 
-using Schola.Domain.Repositories;
 using Schola.Infrastructure.EF.Contexts;
 using Microsoft.EntityFrameworkCore;
 
 namespace Schola.Infrastructure.EF.Repositories;
 
-internal sealed class UserEntityRepository : IUserRepository
+internal sealed class UserEntityRepository : IUserEntityRepository
 {
     private readonly DbSet<UserEntity> _userEntities;
     private readonly WriteDbContext _writeDbContext;

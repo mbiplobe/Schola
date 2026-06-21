@@ -1,24 +1,26 @@
-using Schola.Infrastructure.EF.Config;
-using Schola.Infrastructure.EF.Models;
 using Microsoft.EntityFrameworkCore;
+using Schola.Infrastructure.EF.Models;
 
 namespace Schola.Infrastructure.EF.Contexts;
 
 internal sealed class ReadDbContext : DbContext
 {
-    public DbSet<StudentReadModel> Students { get; set; }
-    public DbSet<UserReadModel> Users { get; set; }
-    public DbSet<GuardianReadModel> Guardians { get; set; }
-    public DbSet<StudentGuardianMapReadModel> StudentGuardianMaps { get; set; }
-    public DbSet<GuardianRelationshipReadModel> GuardianRelationships { get; set; }
-    public DbSet<ClassReadModel> Classes { get; set; }
+    public DbSet<UserReadModel> Users { get; set; } = default!;
+    // public DbSet<StudentReadModel> Students { get; set; } = default!;
+    // public DbSet<GuardianReadModel> Guardians { get; set; } = default!;
+    // public DbSet<StudentGuardianMapReadModel> StudentGuardianMaps { get; set; } = default!;
+    // public DbSet<GuardianRelationshipReadModel> GuardianRelationships { get; set; } = default!;
+    // public DbSet<ClassReadModel> Classes { get; set; } = default!;
 
-    public ReadDbContext(DbContextOptions<ReadDbContext> options) : base(options)
+    public ReadDbContext(DbContextOptions<ReadDbContext> options)
+        : base(options)
     {
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(ReadDbContext).Assembly);
+
+        modelBuilder.ApplyConfigurationsFromAssembly(
+            typeof(ReadDbContext).Assembly);
     }
 }

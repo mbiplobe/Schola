@@ -21,13 +21,18 @@ internal sealed class SearchUserEntityHandler : IQueryHandler<SearchUserEntity, 
         if (!string.IsNullOrWhiteSpace(query.SearchPhrase))
         {
             dbQuery = dbQuery.Where(x =>
-                Microsoft.EntityFrameworkCore.EF.Functions.Like(x.FullName, $"%{query.SearchPhrase}%"));
+        Microsoft.EntityFrameworkCore.EF.Functions.Like(
+            (x.FirstName ?? "") + " " +
+            (x.MiddleName ?? "") + " " +
+            (x.LastName ?? ""),
+            $"%{query.SearchPhrase}%"
+        ));
         }
 
         return await dbQuery
             .Select(x => new UserEntityDto(
                 x.ID,
-                x.FullName,
+                x.FirstName + " " + (x.MiddleName ?? "") + " " + (x.LastName ?? ""),
                 x.Email,
                 x.Mobile
             ))

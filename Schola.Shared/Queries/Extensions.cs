@@ -10,11 +10,13 @@ namespace Schola.Shared.Queries;
         {
             var assembly = Assembly.GetCallingAssembly();
 
-            services.AddSingleton<IQueryDispatcher, InMemoryQueryDispatcher>();
+            services.AddScoped<IQueryDispatcher, InMemoryQueryDispatcher>();
             services.Scan(s => s.FromAssemblies(assembly)
                 .AddClasses(c => c.AssignableTo(typeof(IQueryHandler<,>)))
                 .AsImplementedInterfaces()
                 .WithScopedLifetime());
+
+     
 
             return services;
         }

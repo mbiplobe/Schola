@@ -1,37 +1,26 @@
-
 using Schola.Infrastructure.EF.Contexts;
-using Schola.Shared.Abstractions.Queries;
 using Microsoft.EntityFrameworkCore;
-using Schola.Infrastructure.EF.Models;
+using Schola.Shared.Abstractions.Queries;
 
 namespace Schola.Infrastructure.EF.Queries.Handlers;
 
 internal sealed class GetUserEntityHandler : IQueryHandler<GetUserEntity, UserEntityDto>
 {
-    private readonly DbSet<UserReadModel> _UserEntities;
+    private readonly ReadDbContext _context;
 
     public GetUserEntityHandler(ReadDbContext context)
-        => _UserEntities = context.Users;   
+        => _context = context;
+
     public async Task<UserEntityDto> HandleAsync(GetUserEntity query)
     {
-        try
-        {
-            var result = await _UserEntities
-                .AsNoTracking()
-                .Where(x => x.ID == query.Id && x.IsActive == true)
-                .FirstOrDefaultAsync();
+        var result = await _context.Users
+            .AsNoTracking()
+            .Where(x => x.ID == query.Id)
+            .FirstOrDefaultAsync();
 
-            if (result == null)
-            {
-                throw new KeyNotFoundException($"User with ID {query.Id} not found.");
-            }
+        if (result is null)
+            throw new KeyNotFoundException($"User not found: {query.Id}");
 
-            return result.AsDto();
-        }
-        catch (Exception ex)
-        {
-            // Log the exception (not implemented here)
-            throw new Exception($"Error fetching user with ID {query.Id}: {ex.Message}");
-        }
+        return result.AsDto();
     }
 }

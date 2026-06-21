@@ -10,19 +10,15 @@ internal static class Extensions
     public static UserEntityDto AsDto(this UserReadModel readModel)
         => new UserEntityDto(
             Id: readModel.ID,
-            FullName: readModel.FullName,
+            FullName: readModel.FirstName + " " + readModel.MiddleName + " " + readModel.LastName,
             Email: readModel.Email,
             Mobile: readModel.Mobile
         );
-            //     City: readModel.Destination?.City,
-            //     Country: readModel.Destination?.Country
-            // ),
-            // Items: readModel.Items?.Select(pi => new SampleEntityItemDto
-            // (
-            //     Name: pi.Name,
-            //     Quantity: pi.Quantity,
-            //     IsTaken: pi.IsTaken
-            // )
 
-            
+    public static ClassEntityDto AsDto(this ClassReadModel readModel)
+        => new ClassEntityDto(
+            Id: readModel.Id,
+            Name: readModel.Name,
+            Description: readModel.Description
+        );
 }

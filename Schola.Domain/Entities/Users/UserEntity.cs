@@ -84,3 +84,4 @@ public class UserEntity : AggregateRoot<EntityID>
     public bool ValidatePassword(string password)
         => Password.Verify(password);
 }
+

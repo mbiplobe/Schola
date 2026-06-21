@@ -16,12 +16,15 @@ public class UserProfileController : BaseController
         _queryDispatcher = queryDispatcher;
     }
 
-    [HttpGet("{id:guid}")]
-    public async Task<ActionResult<UserEntityDto>> Get([FromRoute] GetUserEntity query)
-    {
-        var result = await _queryDispatcher.QueryAsync(query);
-        return OkOrNotFound(result);
-    }
+  [HttpGet("{id}")]
+public async Task<ActionResult<UserEntityDto>> GetById([FromRoute] GetUserEntity query)
+{
+    // var query = new GetUserEntity { Id = id };
+
+    var result = await _queryDispatcher.QueryAsync(query);
+
+    return OkOrNotFound(result);
+}
 
    
 
@@ -33,12 +36,12 @@ public class UserProfileController : BaseController
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post([FromBody] CreateUserCommand command)
+    public async Task<ActionResult<Guid>> Post([FromBody] CreateUserCommand command)
     {
         var id = command.Id ?? Guid.NewGuid();
         command = command with { Id = id };
         await _commandDispatcher.DispatchAsync(command);
-        return CreatedAtAction(nameof(Get), new { id }, null);
+        return OkOrNotFound(id);
     }
 
     // [HttpPut("{SampleEntityId}/items")]

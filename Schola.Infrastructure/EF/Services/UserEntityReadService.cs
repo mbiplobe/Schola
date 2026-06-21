@@ -14,4 +14,6 @@ internal sealed class UserEntityReadService : IUserEntityReadService
 
     public Task<bool> ExistsByNameAsync(string name)
         => _userEntity.AnyAsync(pl => pl.FullName == name);
+
+  
 }

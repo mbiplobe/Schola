@@ -16,10 +16,17 @@ internal sealed class InMemoryQueryDispatcher : IQueryDispatcher
         {
             using var scope = _serviceProvider.CreateScope();
 
-            var handler = scope.ServiceProvider
-                .GetRequiredService<IQueryHandler<IQuery<TResult>, TResult>>();
+            var handlerType = typeof(IQueryHandler<,>)
+         .MakeGenericType(query.GetType(), typeof(TResult));
 
-            return await handler.HandleAsync(query);
+            var handler = scope.ServiceProvider.GetRequiredService(handlerType);
+
+            var method = handlerType.GetMethod("HandleAsync");
+
+            if (method == null)
+                throw new Exception($"HandleAsync not found on {handlerType.Name}");
+
+            return await (Task<TResult>)method.Invoke(handler, new object[] { query })!;
         }
         catch (Exception e)
         {
@@ -27,4 +34,3 @@ internal sealed class InMemoryQueryDispatcher : IQueryDispatcher
         }
     }
 }
-

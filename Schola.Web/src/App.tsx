@@ -1,11 +1,7 @@
-import ClassView from "./pages/class/ClassView";
+import AppRoutes from "./routes/AppRoutes";
 
 function App() {
-  return (
-    <>
-      <ClassView />
-    </>
-  );
+  return <AppRoutes />;
 }
 
 export default App;

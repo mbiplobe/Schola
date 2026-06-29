@@ -3,7 +3,8 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Schola.Infrastructure.EF.Config;
 
-internal sealed class WriteConfiguration : IEntityTypeConfiguration<UserEntity>
+internal sealed class WriteConfiguration : IEntityTypeConfiguration<UserEntity>,
+    IEntityTypeConfiguration<ClassEntity>
 {
     public void Configure(EntityTypeBuilder<UserEntity> builder)
     {
@@ -17,9 +18,6 @@ internal sealed class WriteConfiguration : IEntityTypeConfiguration<UserEntity>
                 id => id.Value,
                 value => new EntityID(value));
 
-        // =========================
-        // NAME (Owned Value Object)
-        // =========================
         builder.OwnsOne(x => x.Name, name =>
         {
             name.Property(x => x.FirstName)
@@ -37,9 +35,6 @@ internal sealed class WriteConfiguration : IEntityTypeConfiguration<UserEntity>
                 .IsRequired();
         });
 
-        // =========================
-        // EMAIL (Value Object)
-        // =========================
         builder.OwnsOne(x => x.Email, email =>
         {
             email.Property(x => x.Value)
@@ -48,9 +43,6 @@ internal sealed class WriteConfiguration : IEntityTypeConfiguration<UserEntity>
                 .IsRequired();
         });
 
-        // =========================
-        // MOBILE (Value Object)
-        // =========================
         builder.OwnsOne(x => x.Mobile, mobile =>
         {
             mobile.Property(x => x.Value)
@@ -59,9 +51,6 @@ internal sealed class WriteConfiguration : IEntityTypeConfiguration<UserEntity>
                 .IsRequired();
         });
 
-        // =========================
-        // PASSWORD (Value Object)
-        // =========================
         builder.OwnsOne(x => x.Password, password =>
         {
             password.Property(x => x.Value)
@@ -69,5 +58,61 @@ internal sealed class WriteConfiguration : IEntityTypeConfiguration<UserEntity>
                 .HasMaxLength(50)
                 .IsRequired();
         });
+
+        builder.Property(x => x.CreatedBy)
+        .HasColumnName("created_by")
+        .HasMaxLength(50);
+
+        builder.Property(x => x.CreatedDate)
+        .HasColumnName("created_date")
+        .HasMaxLength(50);
+
+
+        builder.Property(x => x.UpdatedBy)
+        .HasColumnName("updated_by")
+        .HasMaxLength(50);
+
+        builder.Property(x => x.UpdatedDate)
+        .HasColumnName("updated_date")
+        .HasMaxLength(50);
     }
+
+    public void Configure(EntityTypeBuilder<ClassEntity> builder)
+    {
+        builder.ToTable("classes");
+
+        builder.HasKey(x => x.Id);
+
+        builder.OwnsOne(x => x.Name, name =>
+        {
+            name.Property(x => x.Value)
+                .HasColumnName("Name")
+                .HasMaxLength(200)
+                .IsRequired();
+        });
+
+        builder.Property(x => x.Description)
+        .HasColumnName("Description")
+        .HasMaxLength(500);
+
+        builder.Property(x => x.CreatedBy)
+        .HasColumnName("created_by")
+        .HasMaxLength(50);
+
+        builder.Property(x => x.CreatedDate)
+        .HasColumnName("created_date")
+        .HasMaxLength(50);
+
+
+        builder.Property(x => x.UpdatedBy)
+        .HasColumnName("updated_by")
+        .HasMaxLength(50);
+
+        builder.Property(x => x.UpdatedDate)
+        .HasColumnName("updated_date")
+        .HasMaxLength(50);
+
+    }
+
+
 }

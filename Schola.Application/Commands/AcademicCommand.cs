@@ -3,7 +3,7 @@ using Schola.Shared.Abstractions.Commands;
 public sealed record CreateClassCommand(
     string Name,
     string? Description,
-    string CreatedBy
+    string? CreatedBy
 ) : ICommand;
 
 public sealed record UpdateClassCommand(

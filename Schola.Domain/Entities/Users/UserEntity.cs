@@ -7,6 +7,11 @@ public class UserEntity : AggregateRoot<EntityID>
     public Phone Mobile { get; private set; } = default!;
     public Password Password { get; private set; } = default!;
 
+    public DateTime CreatedDate { get; private set; }
+    public string CreatedBy { get; private set; } 
+    public DateTime? UpdatedDate { get; private set; }
+    public string? UpdatedBy { get; private set; }
+
     // EF Core constructor
     private UserEntity()
     {

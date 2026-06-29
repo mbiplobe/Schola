@@ -39,5 +39,6 @@ internal sealed class UserReadConfiguration
         builder.Property(x => x.IsActive)
             .HasColumnName("Is_Active")
             .IsRequired();
+
     }
 }

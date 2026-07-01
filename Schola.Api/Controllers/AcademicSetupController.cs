@@ -21,27 +21,27 @@ public class AcademicSetupController : BaseController
         return Ok(true);
     }
 
-    // [HttpPut]
-    // public async Task<IActionResult> UpdateClass([FromBody] UpdateClassCommand command)
-    // {
-    //     await _commandDispatcher.DispatchAsync(command);
-    //     return Ok(true);
-    // }
+    [HttpPut]
+    public async Task<IActionResult> UpdateClass([FromBody] UpdateClassCommand command)
+    {
+        await _commandDispatcher.DispatchAsync(command);
+        return Ok(true);
+    }
 
-    // [HttpDelete]
-    // public async Task<IActionResult> DeleteClass([FromBody] DeleteClassCommand command)
-    // {
-    //     await _commandDispatcher.DispatchAsync(command);
-    //     return Ok(true);
-    // }
+    [HttpDelete]
+    public async Task<IActionResult> DeleteClass([FromBody] DeleteClassCommand command)
+    {
+        await _commandDispatcher.DispatchAsync(command);
+        return Ok(true);
+    }
 
-    // [HttpGet]
-    // public async Task<ActionResult<IEnumerable<ClassEntityDto>>> GetClasses([FromQuery] GetClassById query)
-    // {
-    //     var result = await _queryDispatcher.QueryAsync(query);
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<ClassEntityDto>>> GetClasses([FromQuery] GetClasses query)
+    {
+        var result = await _queryDispatcher.QueryAsync(query);
 
-    //     return Ok(result);
-    // }
+        return Ok(result);
+    }
     
     ////////////////////////////////////////////////////////////////////////////////////////
     // [HttpPost]

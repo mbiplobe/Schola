@@ -3,7 +3,8 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Schola.Infrastructure.EF.Models;
 
 internal sealed class UserReadConfiguration
-    : IEntityTypeConfiguration<UserReadModel>
+    : IEntityTypeConfiguration<UserReadModel>,
+      IEntityTypeConfiguration<ClassReadModel>
 {
     public void Configure(EntityTypeBuilder<UserReadModel> builder)
     {
@@ -40,5 +41,22 @@ internal sealed class UserReadConfiguration
             .HasColumnName("Is_Active")
             .IsRequired();
 
+    }
+
+    public void Configure(EntityTypeBuilder<ClassReadModel> builder)
+    {
+       builder.ToTable("Classes");
+
+        builder.HasKey(x => x.Id);
+
+        builder.Property(x => x.Name)
+        .HasColumnName("Name")
+            .HasMaxLength(100)
+            .IsRequired();
+
+            builder.Property(x => x.Description)
+        .HasColumnName("Description")
+            .HasMaxLength(500)
+            .IsRequired();
     }
 }

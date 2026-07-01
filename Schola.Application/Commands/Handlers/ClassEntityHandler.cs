@@ -24,47 +24,47 @@ internal sealed class ClassAddEntityHandler : ICommandHandler<CreateClassCommand
     }
 }
 
-// internal sealed class ClassUpdateEntityHandler : ICommandHandler<UpdateClassCommand>
-// {
-//     private readonly IClassRepository _repository;
+internal sealed class ClassUpdateEntityHandler : ICommandHandler<UpdateClassCommand>
+{
+    private readonly IClassRepository _repository;
 
-//     public ClassUpdateEntityHandler(IClassRepository repository)
-//         => _repository = repository;
+    public ClassUpdateEntityHandler(IClassRepository repository)
+        => _repository = repository;
 
-//     public async Task HandleAsync(UpdateClassCommand command)
-//     {
-//         var classEntity = await _repository.GetAsync(command.Id);
+    public async Task HandleAsync(UpdateClassCommand command)
+    {
+        var classEntity = await _repository.GetAsync(command.Id);
 
-//         if (classEntity is null)
-//         {
-//             throw new ClassNotFoundException(command.Id);
-//         }
+        if (classEntity is null)
+        {
+            throw new ClassNotFoundException(command.Id);
+        }
 
-//         classEntity.UpdateProfile(command.Name, command.Description, command.UpdatedBy);
+        classEntity.UpdateProfile(command.Name, command.Description, command.UpdatedBy);
 
-//         await _repository.UpdateAsync(classEntity);
-//     }
-// }
+        await _repository.UpdateAsync(classEntity);
+    }
+}
 
-// internal sealed class ClassDeleteEntityHandler : ICommandHandler<DeleteClassCommand>
-// {
-//      private readonly IClassRepository _repository;
+internal sealed class ClassDeleteEntityHandler : ICommandHandler<DeleteClassCommand>
+{
+     private readonly IClassRepository _repository;
 
-//     public ClassDeleteEntityHandler(IClassRepository repository)
-//         => _repository = repository;
+    public ClassDeleteEntityHandler(IClassRepository repository)
+        => _repository = repository;
 
-//     public async Task HandleAsync(DeleteClassCommand command)
-//     {
-//         var classEntity = await _repository.GetAsync(command.Id);
+    public async Task HandleAsync(DeleteClassCommand command)
+    {
+        var classEntity = await _repository.GetAsync(command.Id);
 
-//         if (classEntity is null)
-//         {
-//             throw new ClassNotFoundException(command.Id);
-//         }
+        if (classEntity is null)
+        {
+            throw new ClassNotFoundException(command.Id);
+        }
 
-//         await _repository.DeleteAsync(classEntity);
-//     }
+        await _repository.DeleteAsync(classEntity);
+    }
 
-// }
+}
 
 

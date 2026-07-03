@@ -21,5 +21,12 @@ internal static class Extensions
             Name: readModel.Name,
             Description: readModel.Description
         );
+
+
+    public static SectionEntityDto AsDto(this SectionReadModel readModel)
+        => new SectionEntityDto(
+            Id: readModel.Id,
+            Name: readModel.Name
+        );
 }
 

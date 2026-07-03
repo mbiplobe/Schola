@@ -3,8 +3,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Schola.Infrastructure.EF.Config;
 
-internal sealed class WriteConfiguration : IEntityTypeConfiguration<UserEntity>,
-    IEntityTypeConfiguration<ClassEntity>
+internal sealed class WriteConfiguration : IEntityTypeConfiguration<UserEntity>, 
+IEntityTypeConfiguration<ClassEntity>, 
+IEntityTypeConfiguration<SectionEntity>
 {
     public void Configure(EntityTypeBuilder<UserEntity> builder)
     {
@@ -114,5 +115,35 @@ internal sealed class WriteConfiguration : IEntityTypeConfiguration<UserEntity>,
 
     }
 
+    public void Configure(EntityTypeBuilder<SectionEntity> builder)
+    {
+        builder.ToTable("Sections");
 
+        builder.HasKey(x => x.Id);
+
+        builder.OwnsOne(x => x.Name, name =>
+        {
+            name.Property(x => x.Value)
+                .HasColumnName("Name")
+                .HasMaxLength(200)
+                .IsRequired();
+        });
+
+
+        builder.Property(x => x.CreatedBy)
+        .HasColumnName("created_by")
+        .HasMaxLength(50);
+
+        builder.Property(x => x.CreatedDate)
+        .HasColumnName("created_date")
+        .HasMaxLength(50);
+
+        builder.Property(x => x.UpdatedBy)
+        .HasColumnName("updated_by")
+        .HasMaxLength(50);
+
+        builder.Property(x => x.UpdatedDate)
+        .HasColumnName("updated_date")
+        .HasMaxLength(50);
+    }
 }

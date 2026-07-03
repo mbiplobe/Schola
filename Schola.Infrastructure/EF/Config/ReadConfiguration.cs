@@ -2,9 +2,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Schola.Infrastructure.EF.Models;
 
-internal sealed class UserReadConfiguration
-    : IEntityTypeConfiguration<UserReadModel>,
-      IEntityTypeConfiguration<ClassReadModel>
+internal sealed class UserReadConfiguration : IEntityTypeConfiguration<UserReadModel>, 
+IEntityTypeConfiguration<ClassReadModel>, 
+IEntityTypeConfiguration<SectionReadModel>
 {
     public void Configure(EntityTypeBuilder<UserReadModel> builder)
     {
@@ -45,7 +45,7 @@ internal sealed class UserReadConfiguration
 
     public void Configure(EntityTypeBuilder<ClassReadModel> builder)
     {
-       builder.ToTable("Classes");
+        builder.ToTable("Classes");
 
         builder.HasKey(x => x.Id);
 
@@ -54,8 +54,20 @@ internal sealed class UserReadConfiguration
             .HasMaxLength(100)
             .IsRequired();
 
-            builder.Property(x => x.Description)
-        .HasColumnName("Description")
+        builder.Property(x => x.Description)
+    .HasColumnName("Description")
+        .HasMaxLength(500)
+        .IsRequired();
+    }
+
+    public void Configure(EntityTypeBuilder<SectionReadModel> builder)
+    {
+        builder.ToTable("sectionview");
+
+        builder.HasKey(x => x.Id);
+
+        builder.Property(x => x.Name)
+            .HasColumnName("Name")
             .HasMaxLength(500)
             .IsRequired();
     }

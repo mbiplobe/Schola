@@ -1,9 +1,9 @@
+
 using Schola.Shared.Abstractions.Domains;
 
 public sealed class SectionEntity : AggregateRoot<long>
 {
     public SectionName Name { get; private set; }
-
     public DateTime CreatedDate { get; private set; }
     public string CreatedBy { get; private set; } 
     public DateTime? UpdatedDate { get; private set; }
@@ -14,8 +14,12 @@ public sealed class SectionEntity : AggregateRoot<long>
     {
     }
 
-    public SectionEntity(SectionName name,string createdBy)
+    public SectionEntity(
+        long id,
+        SectionName name,
+        string createdBy)
     {
+        Id = id;
         Name = name;
         CreatedBy = !string.IsNullOrWhiteSpace(createdBy)
             ? createdBy
@@ -23,21 +27,14 @@ public sealed class SectionEntity : AggregateRoot<long>
 
         CreatedDate = DateTime.UtcNow;
 
-        AddEvent(new SectionCreatedEvent(Name, CreatedBy));
+        AddEvent(new SectionAddedEvent(Id,Name, CreatedBy));
     }
 
-    public void ChangeName(SectionName newName, string updatedBy)
-    {
-        if (Name == newName) return;
+    
 
-        Name = newName;
-        SetUpdatedBy(updatedBy);
+   
 
-        AddEvent(new ClassNameChangedEvent(Id, newName));
-    }
-
-
-    public void UpdateSectionName(
+    public void UpdateSection(
         SectionName name,
         string updatedBy)
     {
@@ -48,12 +45,11 @@ public sealed class SectionEntity : AggregateRoot<long>
             Name = name;
             hasChanged = true;
         }
-
         if (!hasChanged) return;
 
         SetUpdatedBy(updatedBy);
 
-        AddEvent(new SectionUpdatedEvent(Id, Name));
+        AddEvent(new SectionUpdatedEvent(Id, Name: Name, UpdatedBy: UpdatedBy ?? string.Empty));
     }
 
     public void Delete()
@@ -66,7 +62,7 @@ public sealed class SectionEntity : AggregateRoot<long>
     {
         UpdatedBy = !string.IsNullOrWhiteSpace(updatedBy)
             ? updatedBy
-            : throw new SectionInvalidException("Updated by is required.");
+            : throw new ClassInvalidException("Updated by is required.");
 
         UpdatedDate = DateTime.UtcNow;
     }

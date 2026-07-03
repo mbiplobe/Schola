@@ -4,7 +4,4 @@ public class ClassInvalidException(string message) : PublicException(message)
 {
 }
 
-public class SectionInvalidException(string message) : PublicException(message)
-{
-}
 

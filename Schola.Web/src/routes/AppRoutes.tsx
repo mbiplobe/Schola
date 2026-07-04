@@ -1,15 +1,13 @@
-// routes/AppRoutes.tsx
-
 import { Routes, Route } from "react-router-dom";
-import RegisterPage from "../presentation/pages/RegisterPage";
+import SectionPage from "../presentation/pages/SectionPage";
 
 export default function AppRoutes() {
-  return (
-    <Routes>
-      <Route
-        path="/register"
-        element={<RegisterPage />}
-      />
-    </Routes>
-  );
+    return (
+        <Routes>
+            <Route
+                path="/sections"
+                element={<SectionPage />}
+            />
+        </Routes>
+    );
 }

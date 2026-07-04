@@ -14,28 +14,28 @@ public class ClassController : BaseController
         _queryDispatcher = queryDispatcher;
     }
 
-    [HttpPost("class")]
+    [HttpPost]
     public async Task<IActionResult> AddClass([FromBody] CreateClassCommand command)
     {
         await _commandDispatcher.DispatchAsync(command);
         return Ok(true);
     }
 
-    [HttpPut("class")]
+    [HttpPut]
     public async Task<IActionResult> UpdateClass([FromBody] UpdateClassCommand command)
     {
         await _commandDispatcher.DispatchAsync(command);
         return Ok(true);
     }
 
-    [HttpDelete("class")]
+    [HttpDelete]
     public async Task<IActionResult> DeleteClass([FromBody] DeleteClassCommand command)
     {
         await _commandDispatcher.DispatchAsync(command);
         return Ok(true);
     }
 
-    [HttpGet("class")]
+    [HttpGet]
     public async Task<ActionResult<IEnumerable<ClassEntityDto>>> GetClasses([FromQuery] GetClasses query)
     {
         var result = await _queryDispatcher.QueryAsync(query);

@@ -1,3 +1,4 @@
+import { SectionEntity } from "../entities/SectionEntity";
 import type { ISectionRepository } from "../repositories/ISectionRepository";
 
 export class SectionUseCase {
@@ -10,14 +11,29 @@ export class SectionUseCase {
     }
 
     async create(name: string) {
-        await this.repository.create(name);
+        const section = new SectionEntity(
+            0,
+            name,
+            "system"
+        );
+
+        return await this.repository.create(section);
     }
 
-    async update(id: number, name: string) {
-        await this.repository.update(id, name);
+    async update(
+        id: number,
+        name: string
+    ) {
+        const section = new SectionEntity(
+            id,
+            name,
+            "system"
+        );
+
+        return await this.repository.update(section);
     }
 
     async delete(id: number) {
-        await this.repository.delete(id);
+        return await this.repository.delete(id);
     }
 }

@@ -1,37 +1,49 @@
-
 import api from "../../core/api/axios";
+import type { SectionEntity } from "../../domain/entities/SectionEntity";
 import type { ISectionRepository } from "../../domain/repositories/ISectionRepository";
 import type { SectionDto } from "../dto/SectionDto";
 
 export class SectionRepository implements ISectionRepository {
   async getAll(): Promise<SectionDto[]> {
-       try {
-        const response = await api.get<SectionDto[]>("section");
-        return response.data;
+    try {
+      const response = await api.get<SectionDto[]>("section");
+      return response.data;
     } catch (error) {
-        console.error("Failed to get sections:", error);
-        throw error;
+      console.error("Failed to get sections:", error);
+      throw error;
     }
-    }
+  }
 
-    async create(name: string) {
-        await api.post("section", {
-            name,
-            createdBy: "Admin"
-        });
-    }
+  async create(section: SectionEntity): Promise<boolean> {
+    try {
+      const response = await api.post("section", {
+        name: section.name,
+        createdBy: section.createdBy,
+      });
 
-    async update(id: number, name: string) {
-        await api.put("section", {
-            id,
-            name,
-            updatedBy: "Admin"
-        });
+      return response.data;
+    } catch {
+      return false;
     }
+  }
 
-    async delete(id: number) {
-        await api.delete("section", {
-            data: { id }
-        });
+  async update(section: SectionEntity): Promise<boolean> {
+    try {
+      const response = await api.put(`section/${section.id}`, {
+        name: section.name,
+        updatedBy: section.createdBy,
+      });
+
+      return response.data;
+    } catch {
+      return false;
     }
+  }
+
+  async delete(id: number): Promise<boolean> {
+    const response = await api.delete("section", {
+      data: { id },
+    });
+    return response.data;
+  }
 }

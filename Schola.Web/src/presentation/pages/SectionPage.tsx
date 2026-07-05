@@ -5,17 +5,14 @@ import {
     Trash2,
     FolderOpen
 } from "lucide-react";
-
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 
 import { useSections } from "../hooks/useSections";
 import type { SectionDto } from "../../infrastructure/dto/SectionDto";
 
-import {
-    sectionSchema,
-    type SectionFormData
-} from "../../domain/validators/sectionSchema";
+type SectionForm = {
+    name: string;
+};
 
 export default function SectionPage() {
     const {
@@ -28,20 +25,26 @@ export default function SectionPage() {
     const [editingId, setEditingId] =
         useState<number | null>(null);
 
+    const [error, setError] =
+        useState<string>("");
+
     const {
         register,
         handleSubmit,
         reset,
-        setValue,
-        formState: { errors }
-    } = useForm<SectionFormData>({
-        resolver: zodResolver(sectionSchema)
+        setValue
+    } = useForm<SectionForm>({
+        defaultValues: {
+            name: ""
+        }
     });
 
     const onSubmit = async (
-        data: SectionFormData
+        data: SectionForm
     ) => {
         try {
+            setError("");
+
             if (editingId !== null) {
                 await update(
                     editingId,
@@ -55,8 +58,12 @@ export default function SectionPage() {
 
             reset();
             setEditingId(null);
-        } catch (error) {
-            console.error(error);
+        } catch (err) {
+            if (err instanceof Error) {
+                setError(err.message);
+            }
+
+            console.error(err);
         }
     };
 
@@ -69,6 +76,8 @@ export default function SectionPage() {
             "name",
             section.name
         );
+
+        setError("");
     };
 
     const handleDelete = async (
@@ -84,8 +93,8 @@ export default function SectionPage() {
 
         try {
             await remove(id);
-        } catch (error) {
-            console.error(error);
+        } catch (err) {
+            console.error(err);
         }
     };
 
@@ -93,6 +102,8 @@ export default function SectionPage() {
         reset();
 
         setEditingId(null);
+
+        setError("");
     };
 
     return (
@@ -129,18 +140,15 @@ export default function SectionPage() {
                             {...register("name")}
                             placeholder="Enter section name"
                             className={`w-full rounded-xl border px-4 py-3 outline-none focus:border-blue-500 ${
-                                errors.name
+                                error
                                     ? "border-red-500"
                                     : "border-slate-300"
                             }`}
                         />
 
-                        {errors.name && (
+                        {error && (
                             <p className="mt-2 text-sm text-red-600">
-                                {
-                                    errors.name
-                                        .message
-                                }
+                                {error}
                             </p>
                         )}
                     </div>
@@ -155,8 +163,7 @@ export default function SectionPage() {
                                 : "Save"}
                         </button>
 
-                        {editingId !==
-                            null && (
+                        {editingId !== null && (
                             <button
                                 type="button"
                                 onClick={
@@ -210,8 +217,7 @@ export default function SectionPage() {
                                         }
                                         className="py-10 text-center text-slate-500"
                                     >
-                                        No sections
-                                        found.
+                                        No sections found.
                                     </td>
                                 </tr>
                             ) : (
@@ -240,6 +246,7 @@ export default function SectionPage() {
                                             <td className="px-6 py-4">
                                                 <div className="flex justify-center gap-2">
                                                     <button
+                                                        type="button"
                                                         onClick={() =>
                                                             handleEdit(
                                                                 section
@@ -247,14 +254,11 @@ export default function SectionPage() {
                                                         }
                                                         className="rounded-lg bg-amber-500 p-2 text-white hover:bg-amber-600"
                                                     >
-                                                        <Pencil
-                                                            size={
-                                                                16
-                                                            }
-                                                        />
+                                                        <Pencil size={16} />
                                                     </button>
 
                                                     <button
+                                                        type="button"
                                                         onClick={() =>
                                                             handleDelete(
                                                                 section.id
@@ -262,11 +266,7 @@ export default function SectionPage() {
                                                         }
                                                         className="rounded-lg bg-red-500 p-2 text-white hover:bg-red-600"
                                                     >
-                                                        <Trash2
-                                                            size={
-                                                                16
-                                                            }
-                                                        />
+                                                        <Trash2 size={16} />
                                                     </button>
                                                 </div>
                                             </td>

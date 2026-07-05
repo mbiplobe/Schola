@@ -14,7 +14,7 @@ export class SectionEntity {
             );
         }
 
-        if (name.length > 100) {
+        if (name.length > 50) {
             throw new Error(
                 "Section name cannot exceed 50 characters."
             );

@@ -2,8 +2,6 @@
 
 import type { SectionDto } from "../../infrastructure/dto/SectionDto";
 
-
-
 export interface ISectionRepository {
     getAll(): Promise<SectionDto[]>;
     create(name: string): Promise<void>;

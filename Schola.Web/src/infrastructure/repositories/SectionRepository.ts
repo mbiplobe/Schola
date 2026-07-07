@@ -29,9 +29,11 @@ export class SectionRepository implements ISectionRepository {
 
   async update(section: SectionEntity): Promise<boolean> {
     try {
-      const response = await api.put(`section/${section.id}`, {
+
+      const response = await api.put("section", {
+        id: section.id,
         name: section.name,
-        updatedBy: section.createdBy,
+        updatedBy: section.createdBy
       });
 
       return response.data;

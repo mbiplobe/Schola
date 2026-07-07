@@ -30,11 +30,19 @@ export class ClassRepository implements IClassRepository {
 
   async update(item: ClassEntity): Promise<boolean> {
     try {
-      const response = await api.put(`class/${item.id}`, {
-        name: item.name,
-        description: item.description,
-        updatedBy: item.createdBy,
-      });
+      // const response = await api.put(`class/${item.id}`, {
+      //   id: item.id,
+      //   name: item.name,
+      //   description: item.description,
+      //   updatedBy: item.createdBy
+      // });
+
+const response = await api.put("class", {
+  id: item.id,
+  name: item.name,
+  description: item.description,
+  updatedBy: item.createdBy
+});
 
       return response.data;
     } catch (err) {

@@ -55,9 +55,9 @@ IEntityTypeConfiguration<SectionReadModel>
             .IsRequired();
 
         builder.Property(x => x.Description)
-    .HasColumnName("Description")
-        .HasMaxLength(500)
-        .IsRequired();
+        .HasColumnName("Description")
+            .HasMaxLength(500)
+            .IsRequired();
     }
 
     public void Configure(EntityTypeBuilder<SectionReadModel> builder)
@@ -68,6 +68,11 @@ IEntityTypeConfiguration<SectionReadModel>
 
         builder.Property(x => x.Name)
             .HasColumnName("Name")
+            .HasMaxLength(500)
+            .IsRequired();
+
+         builder.Property(x => x.Description)
+            .HasColumnName("Description")
             .HasMaxLength(500)
             .IsRequired();
     }

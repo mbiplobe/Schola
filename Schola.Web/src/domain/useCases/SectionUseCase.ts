@@ -10,10 +10,11 @@ export class SectionUseCase {
         return await this.repository.getAll();
     }
 
-    async create(name: string) {
+    async create(name: string,description: string) {
         const section = new SectionEntity(
             0,
             name,
+            description,
             "system"
         );
 
@@ -22,11 +23,13 @@ export class SectionUseCase {
 
     async update(
         id: number,
-        name: string
+        name: string,
+        description: string
     ) {
         const section = new SectionEntity(
             id,
             name,
+            description,
             "system"
         );
 

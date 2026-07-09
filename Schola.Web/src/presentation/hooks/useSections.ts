@@ -16,20 +16,23 @@ export const useSections = () => {
     };
 
     const create = async (
-        name: string
+        name: string,
+        description: string
     ) => {
-        await objSectionUseCase.create(name);
+        await objSectionUseCase.create(name,description);
 
         await load();
     };
 
     const update = async (
         id: number,
-        name: string
+        name: string,
+        description: string
     ) => {
         await objSectionUseCase.update(
             id,
-            name
+            name,
+            description
         );
 
         await load();

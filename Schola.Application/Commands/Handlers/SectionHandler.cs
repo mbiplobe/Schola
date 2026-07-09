@@ -14,6 +14,7 @@ internal sealed class SectionAddEntityHandler : ICommandHandler<CreateSectionCom
         var sectionEntity = new SectionEntity(
             id: 0,
             name: name,
+            description: command.Description ?? string.Empty,
             createdBy: command.CreatedBy ?? string.Empty
         );
 
@@ -37,7 +38,7 @@ internal sealed class SectionUpdateEntityHandler : ICommandHandler<UpdateSection
             throw new SectionNotFoundException(command.Id);
         }
 
-        sectionEntity.UpdateSection(command.Name, command.UpdatedBy);
+        sectionEntity.UpdateSection(command.Name,command.Description, command.UpdatedBy);
 
         await _repository.UpdateAsync(sectionEntity);
     }

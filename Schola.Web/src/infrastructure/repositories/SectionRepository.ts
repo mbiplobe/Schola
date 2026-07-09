@@ -18,6 +18,7 @@ export class SectionRepository implements ISectionRepository {
     try {
       const response = await api.post("section", {
         name: section.name,
+        description: section.description,
         createdBy: section.createdBy,
       });
 
@@ -33,6 +34,7 @@ export class SectionRepository implements ISectionRepository {
       const response = await api.put("section", {
         id: section.id,
         name: section.name,
+        description: section.description,
         updatedBy: section.createdBy
       });
 

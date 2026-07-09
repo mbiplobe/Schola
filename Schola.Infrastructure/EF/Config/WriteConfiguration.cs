@@ -129,6 +129,9 @@ IEntityTypeConfiguration<SectionEntity>
                 .IsRequired();
         });
 
+        builder.Property(x => x.Description)
+                .HasColumnName("description")
+                .HasMaxLength(500);
 
         builder.Property(x => x.CreatedBy)
         .HasColumnName("created_by")

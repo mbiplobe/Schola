@@ -12,6 +12,7 @@ import type { SectionDto } from "../../infrastructure/dto/SectionDto";
 
 type SectionForm = {
     name: string;
+    description: string;
 };
 
 export default function SectionPage() {
@@ -35,7 +36,8 @@ export default function SectionPage() {
         setValue
     } = useForm<SectionForm>({
         defaultValues: {
-            name: ""
+            name: "",
+            description: ""
         }
     });
 
@@ -48,11 +50,13 @@ export default function SectionPage() {
             if (editingId !== null) {
                 await update(
                     editingId,
-                    data.name
+                    data.name,
+                    data.description
                 );
             } else {
                 await create(
-                    data.name
+                    data.name,
+                    data.description
                 );
             }
 
@@ -75,6 +79,11 @@ export default function SectionPage() {
         setValue(
             "name",
             section.name
+        );
+
+         setValue(
+            "description",
+            section.description ?? ""
         );
 
         setError("");
@@ -133,9 +142,8 @@ export default function SectionPage() {
                     onSubmit={handleSubmit(
                         onSubmit
                     )}
-                    className="flex flex-col gap-4 md:flex-row"
-                >
-                    <div className="flex-1">
+                    className="space-y-4">
+                    <div>
                         <input
                             {...register("name")}
                             placeholder="Enter section name"
@@ -151,6 +159,21 @@ export default function SectionPage() {
                                 {error}
                             </p>
                         )}
+                    </div>
+
+                    <div>
+                        <textarea
+                            {...register(
+                                "description"
+                            )}
+                            rows={4}
+                            placeholder="Enter class description"
+                            className={`w-full rounded-xl border px-4 py-3 outline-none focus:border-blue-500 ${
+                                error
+                                    ? "border-red-500"
+                                    : "border-slate-300"
+                            }`}
+                        />
                     </div>
 
                     <div className="flex gap-2">
@@ -201,6 +224,10 @@ export default function SectionPage() {
                                     Name
                                 </th>
 
+                                <th className="px-6 py-4 text-left">
+                                    Description
+                                </th>
+
                                 <th className="px-6 py-4 text-center">
                                     Actions
                                 </th>
@@ -240,6 +267,11 @@ export default function SectionPage() {
                                             <td className="px-6 py-4 font-medium">
                                                 {
                                                     section.name
+                                                }
+                                            </td>
+                                            <td className="px-6 py-4 font-medium">
+                                                {
+                                                    section.description
                                                 }
                                             </td>
 

@@ -4,6 +4,8 @@ using Schola.Shared.Abstractions.Domains;
 public sealed class SectionEntity : AggregateRoot<long>
 {
     public SectionName Name { get; private set; }
+
+     public string Description { get; private set; }
     public DateTime CreatedDate { get; private set; }
     public string CreatedBy { get; private set; } 
     public DateTime? UpdatedDate { get; private set; }
@@ -17,6 +19,7 @@ public sealed class SectionEntity : AggregateRoot<long>
     public SectionEntity(
         long id,
         SectionName name,
+        string description,
         string createdBy)
     {
         Id = id;
@@ -25,9 +28,13 @@ public sealed class SectionEntity : AggregateRoot<long>
             ? createdBy
             : throw new ClassInvalidException("Created by is required.");
 
+        Description = !string.IsNullOrWhiteSpace(description)
+            ? description
+            : throw new ClassInvalidException("Description by is required.");
+
         CreatedDate = DateTime.UtcNow;
 
-        AddEvent(new SectionAddedEvent(Id,Name, CreatedBy));
+        AddEvent(new SectionAddedEvent(Id, Name, Description, CreatedBy));
     }
 
     
@@ -36,6 +43,7 @@ public sealed class SectionEntity : AggregateRoot<long>
 
     public void UpdateSection(
         SectionName name,
+        string description,
         string updatedBy)
     {
         var hasChanged = false;
@@ -45,11 +53,18 @@ public sealed class SectionEntity : AggregateRoot<long>
             Name = name;
             hasChanged = true;
         }
+
+        if (Description != description)
+        {
+            Description = description;
+            hasChanged = true;
+        }
+
         if (!hasChanged) return;
 
         SetUpdatedBy(updatedBy);
 
-        AddEvent(new SectionUpdatedEvent(Id, Name: Name, UpdatedBy: UpdatedBy ?? string.Empty));
+        AddEvent(new SectionUpdatedEvent(Id, Name: Name,description, UpdatedBy ?? string.Empty));
     }
 
     public void Delete()

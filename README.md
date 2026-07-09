@@ -15,22 +15,65 @@ The core system is engineered to decouple business logic from external framework
 
 ---
 
-## 💻 Tech Stack
+# Schola — School Management Ecosystem
 
-### Backend & Frameworks
-*   **Language:** C#, JavaScript
-*   **Framework:** ASP.NET Core
-*   **Communication:** RESTful Web APIs
+Schola is a modern, high-performance school management ecosystem designed to streamline the complexities of educational administration. Built with enterprise-grade software design patterns and a robust technical stack, the platform ensures scalability, strict maintainability, and top-tier transactional performance.
 
-### Database & Storage
-*   **Relational Database:** MySQL
-*   **Enterprise Database & Automation:** Oracle PL/SQL
+---
 
-### Frontend Integration
-*   **Asynchronous Scripting:** AJAX (for dynamic, non-blocking UI updates), JQuery, JavaScripts
+## 🚀 Technology Stack
+
+### Backend
+
+* ASP.NET Core (.NET)
+* Entity Framework Core (EF Core)
+* CQRS (Command Query Responsibility Segregation)
+* Clean Architecture
+* RESTful Web APIs
+
+### Frontend
+
+* React.js
+* TypeScript
+* Vite
+* Clean Architecture
+
+### Database
+
+* MySQL
+* Oracle PL/SQL
+
+### Architecture & Design Patterns
+
+* Domain-Driven Design (DDD)
+* CQRS Pattern
+* Repository Pattern
+* Dependency Injection
+* SOLID Principles
+
+### Development Tools
+
+* Visual Studio / VS Code
+* Git & GitHub
+* Postman
+* Swagger / OpenAPI
+
+## 📌 Key Features
+
+* Scalable Clean Architecture
+* Separation of Read and Write Operations (CQRS)
+* Secure REST API Integration
+* MySQL Database Support
+* Modern React + TypeScript Frontend
+* Domain-Driven Design (DDD) Approach
+
 
 # Architecture Diagram
 
 ![Architecture](Images/schola.jpeg)
 
 ---
+# Screenshot
+
+![Class Page](Images/class.png)
+![section Page](Images/section.png)

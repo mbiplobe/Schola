@@ -75,5 +75,5 @@ Schola is a modern, high-performance school management ecosystem designed to str
 ---
 # Screenshot
 
-![Class Page](Images/class.png)
+![Class Page](Images/class1.png)
 ![section Page](Images/section.png)

@@ -9,6 +9,7 @@ internal sealed class ReadDbContext : DbContext
     public DbSet<ClassReadModel> Classes { get; set; } = default!;
 
     public DbSet<SectionReadModel> Sections { get; set; } = default!;
+    public DbSet<SubjectReadModel> Subjects { get; set; } = default!;
 
     public ReadDbContext(DbContextOptions<ReadDbContext> options)
         : base(options)

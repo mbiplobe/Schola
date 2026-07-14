@@ -29,5 +29,12 @@ internal static class Extensions
             Name: readModel.Name,
             Description: readModel.Description
         );
+
+    public static SubjectEntityDto AsDto(this SubjectReadModel readModel)
+    => new SubjectEntityDto(
+        Id: readModel.Id,
+        Name: readModel.Name,
+        Description: readModel.Description
+    );
 }
 

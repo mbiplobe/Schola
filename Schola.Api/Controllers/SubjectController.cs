@@ -1,5 +1,4 @@
 
-
 using Microsoft.AspNetCore.Mvc;
 using Schola.Api.Controllers;
 using Schola.Shared.Abstractions.Commands;

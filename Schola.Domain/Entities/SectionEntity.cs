@@ -5,12 +5,13 @@ public sealed class SectionEntity : AggregateRoot<long>
 {
     public SectionName Name { get; private set; }
 
-     public string Description { get; private set; }
-    public DateTime CreatedDate { get; private set; }
-    public string CreatedBy { get; private set; } 
+    public string Description { get; private set; }
+
+
+    public DateTime? CreatedDate { get; private set; }
+    public string? CreatedBy { get; private set; }
     public DateTime? UpdatedDate { get; private set; }
     public string? UpdatedBy { get; private set; }
-
     // EF Core constructor
     private SectionEntity()
     {
